@@ -1,0 +1,22 @@
+name: webminh21
+
+services:
+  webmin:
+    image: webmin-lab:2.670
+    pull_policy: never
+    init: true
+    restart: "no"
+    mem_limit: 512m
+    ports:
+      - "127.0.0.1:18510:10000"
+    volumes:
+      - ./entrypoint.sh:/h21-entrypoint.sh:ro
+    entrypoint: ["/bin/bash", "/h21-entrypoint.sh"]
+    environment:
+      WEBMIN_CONFIG: /etc/webmin
+      WEBMIN_VAR: /var/webmin
+      PERLLIB: /usr/share/webmin
+      LIBROOT: /usr/share/webmin
+    labels:
+      lab: WEBMIN-H21-CHOOSER
+      pin: "2.670"
